@@ -10,21 +10,35 @@
 #       - name: Print Message
 #         run: echo "Hello Ajay!"
 
-name: Learn GitHub Actions
+# name: Learn GitHub Actions
+
+# on:
+#   push:
+
+# jobs:
+#   hello:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Print Date
+#         run: date
+
+#       - name: Show Current Directory
+#         run: pwd
+
+#       - name: Show Node Version
+#         run: node -v
+
+name: Checkout Demo
 
 on:
   push:
 
 jobs:
-  hello:
+  demo:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Date
-        run: date
+      - uses: actions/checkout@v4
 
-      - name: Show Current Directory
-        run: pwd
-
-      - name: Show Node Version
-        run: node -v
+      - run: ls -la
