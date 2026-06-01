@@ -29,16 +29,40 @@
 #       - name: Show Node Version
 #         run: node -v
 
-name: Checkout Demo
+# name: Checkout Demo
+
+# on:
+#   push:
+
+# jobs:
+#   demo:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - run: ls -la
+
+name: Build Backend
 
 on:
   push:
 
 jobs:
-  demo:
+  backend-build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
 
     steps:
       - uses: actions/checkout@v4
 
-      - run: ls -la
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install
+
+      - run: npm run build
