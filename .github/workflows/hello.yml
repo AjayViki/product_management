@@ -43,7 +43,7 @@
 
 #       - run: ls -la
 
-name: Build Backend
+name: Build Project
 
 on:
   push:
