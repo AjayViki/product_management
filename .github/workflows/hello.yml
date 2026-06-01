@@ -64,26 +64,24 @@ jobs:
           node-version: 22
 
       - run: npm install
-
       - run: npm run build
 
-frontend-build:
-  runs-on: ubuntu-latest
+  frontend-build:
+    runs-on: ubuntu-latest
 
-  defaults:
-    run:
-      working-directory: frontend
+    defaults:
+      run:
+        working-directory: frontend
 
-  steps:
-    - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 22
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-    - run: npm install
-    - run: npm run build
-
+      - run: npm install
+      - run: npm run build
 #     name: Build Project
 
 # on:
