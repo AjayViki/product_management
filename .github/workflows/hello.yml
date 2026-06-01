@@ -43,61 +43,18 @@
 
 #       - run: ls -la
 
-name: Build Project
-
-on:
-  push:
-
-jobs:
-  backend-build:
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: backend
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - run: npm install
-      - run: npm run build
-
-  frontend-build:
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: frontend
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - run: npm install
-      - run: npm run build
-#     name: Build Project
+# name: Build Project
 
 # on:
 #   push:
 
 # jobs:
-#   build:
+#   backend-build:
 #     runs-on: ubuntu-latest
-
-#     strategy:
-#       matrix:
-#         app: [backend, frontend]
 
 #     defaults:
 #       run:
-#         working-directory: ${{ matrix.app }}
+#         working-directory: backend
 
 #     steps:
 #       - uses: actions/checkout@v4
@@ -108,3 +65,47 @@ jobs:
 
 #       - run: npm install
 #       - run: npm run build
+
+#   frontend-build:
+#     runs-on: ubuntu-latest
+
+#     defaults:
+#       run:
+#         working-directory: frontend
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: 22
+
+#       - run: npm install
+#       - run: npm run build
+
+name: Build Project
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        app: [backend, frontend]
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.app }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install
+      - run: npm run build
