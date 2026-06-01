@@ -1,11 +1,30 @@
-name: My First Action
+# name: My First Action
 
-on: push
+# on: push
+
+# jobs:
+#   hello:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Print Message
+#         run: echo "Hello Ajay!"
+
+name: Learn GitHub Actions
+
+on:
+  push:
 
 jobs:
   hello:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Message
-        run: echo "Hello Ajay!"
+      - name: Print Date
+        run: date
+
+      - name: Show Current Directory
+        run: pwd
+
+      - name: Show Node Version
+        run: node -v
