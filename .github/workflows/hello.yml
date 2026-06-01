@@ -1,0 +1,11 @@
+name: My First Action
+
+on: push
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Message
+        run: echo "Hello Ajay!"
