@@ -83,6 +83,36 @@
 #       - run: npm install
 #       - run: npm run build
 
+# name: Build Project
+
+# on:
+#   push:
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         app: [backend, frontend]
+
+#     defaults:
+#       run:
+#         working-directory: ${{ matrix.app }}
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: 22
+
+#       - run: npm install
+#       - run: npm run build
+
+#       - name: Build Docker Image
+#         run: docker build -t ${{ matrix.app }} .
+
 name: Build Project
 
 on:
@@ -110,5 +140,19 @@ jobs:
       - run: npm install
       - run: npm run build
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build Docker Image
-        run: docker build -t ${{ matrix.app }} .
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKER_USERNAME }}/product-management-${{ matrix.app }}:latest \
+            .
+
+      - name: Push Docker Image
+        run: |
+          docker push \
+            ${{ secrets.DOCKER_USERNAME }}/product-management-${{ matrix.app }}:latest
