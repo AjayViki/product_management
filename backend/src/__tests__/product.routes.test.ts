@@ -69,7 +69,7 @@ describe("PUT /api/products/:id", () => {
     expect(res.body.data.price).toBe(49.99);
   });
 });
-
+//delete
 describe("DELETE /api/products/:id", () => {
   it("deletes an existing product", async () => {
     const created = await request(app).post("/api/products").send(validProduct);
