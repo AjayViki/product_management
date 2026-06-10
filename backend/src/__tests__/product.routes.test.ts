@@ -1,7 +1,9 @@
 import request from "supertest";
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import { app } from "../../server";
+import app from "../app";
+
+jest.setTimeout(30000);
 
 let mongo: MongoMemoryServer;
 
@@ -10,16 +12,17 @@ beforeAll(async () => {
   await mongoose.connect(mongo.getUri());
 });
 
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongo.stop();
-});
-
 afterEach(async () => {
   const collections = mongoose.connection.collections;
+
   for (const key in collections) {
     await collections[key].deleteMany({});
   }
+});
+
+afterAll(async () => {
+  await mongoose.disconnect();
+  await mongo.stop();
 });
 
 const validProduct = {
@@ -69,7 +72,7 @@ describe("PUT /api/products/:id", () => {
     expect(res.body.data.price).toBe(49.99);
   });
 });
-//delete
+
 describe("DELETE /api/products/:id", () => {
   it("deletes an existing product", async () => {
     const created = await request(app).post("/api/products").send(validProduct);

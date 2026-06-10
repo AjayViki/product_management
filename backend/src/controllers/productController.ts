@@ -14,9 +14,19 @@ export const getProductById = async (req: Request, res: Response) => {
 };
 
 export const createProduct = async (req: Request, res: Response) => {
-  const product = new Product(req.body);
-  await product.save();
-  res.status(201).json({ success: true, data: product });
+  try {
+    const product = await Product.create(req.body);
+
+    return res.status(201).json({
+      success: true,
+      data: product,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid product data",
+    });
+  }
 };
 
 export const updateProduct = async (req: Request, res: Response) => {
